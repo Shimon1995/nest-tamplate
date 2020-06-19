@@ -4,8 +4,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { Result } from 'src/shared/interfaces/result.interface';
-import { CreateTokenDTO } from './dto/create-token.dto';
 import { IToken } from './interfaces/token.interface';
+import { CreateTokenDTO } from './dto/create-token.dto';
 
 @Injectable()
 export class TokenService {

@@ -8,16 +8,20 @@ import {
   UseGuards,
   Delete,
 } from '@nestjs/common';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 
 import { CreateUserDTO } from 'src/user/dto/create-user.dto';
-import { AuthService } from './auth.service';
-import { IUser } from 'src/user/interfaces/user.interface';
 import { SignInDTO } from './dto/sign-in.dto';
+
 import { IReadableUser } from 'src/user/interfaces/readable-user.interface';
-import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
-import { JwtGuard } from 'src/guards/jwt.guard';
-import { User } from 'src/user/decorators/user.decorator';
 import { Result } from 'src/shared/interfaces/result.interface';
+import { IUser } from 'src/user/interfaces/user.interface';
+
+import { User } from 'src/user/decorators/user.decorator';
+
+import { JwtGuard } from 'src/guards/jwt.guard';
+
+import { AuthService } from './auth.service';
 
 @ApiTags('auth')
 @Controller('auth')

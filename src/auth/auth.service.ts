@@ -11,21 +11,24 @@ import { compare } from 'bcrypt';
 import { omit } from 'lodash';
 import * as moment from 'moment';
 
-import { IUser } from 'src/user/interfaces/user.interface';
-import { MailService } from 'src/mail/mail.service';
-import { IMail } from 'src/mail/interfaces/mail.interface';
-import { UserService } from 'src/user/user.service';
 import { CreateUserDTO } from 'src/user/dto/create-user.dto';
-import { TokenService } from 'src/token/token.service';
-import { ITokenPayload } from 'src/token/interfaces/token-payload.interface';
 import { CreateTokenDTO } from 'src/token/dto/create-token.dto';
+import { SignInDTO } from './dto/sign-in.dto';
+
+import { ITokenPayload } from 'src/token/interfaces/token-payload.interface';
+import { Result } from 'src/shared/interfaces/result.interface';
+import { IUser } from 'src/user/interfaces/user.interface';
+import { IMail } from 'src/mail/interfaces/mail.interface';
 import { IToken } from 'src/token/interfaces/token.interface';
+import { IReadableUser } from 'src/user/interfaces/readable-user.interface';
+
+import { MailService } from 'src/mail/mail.service';
+import { UserService } from 'src/user/user.service';
+import { TokenService } from 'src/token/token.service';
+
 import { EStatus } from 'src/user/enums/status.enum';
 import { ERoles } from 'src/user/enums/roles.enum';
-import { SignInDTO } from './dto/sign-in.dto';
-import { IReadableUser } from 'src/user/interfaces/readable-user.interface';
 import { EUserSensitive } from 'src/user/enums/user-sensitive.enum';
-import { Result } from 'src/shared/interfaces/result.interface';
 
 @Injectable()
 export class AuthService {

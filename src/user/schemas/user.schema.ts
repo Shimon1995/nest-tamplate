@@ -1,5 +1,7 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
+
 import { Document } from 'mongoose';
+
 import { ERoles } from '../enums/roles.enum';
 import { EStatus } from '../enums/status.enum';
 

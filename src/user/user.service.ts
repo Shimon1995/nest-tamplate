@@ -22,7 +22,7 @@ export class UserService {
     const roles = [ERoles.guest];
 
     return new this.userModel(
-      assignIn(userDto, { password, status, roles }),
+      assignIn<IUser>(userDto, { password, roles, status }),
     ).save();
   }
 

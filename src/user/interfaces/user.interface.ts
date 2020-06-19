@@ -7,6 +7,6 @@ export interface IUser extends Document {
   fullName: string;
   email: string;
   status: EStatus;
-  roles: Array<ERoles>;
+  roles: [ERoles];
   password: string;
 }

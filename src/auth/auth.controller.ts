@@ -6,6 +6,7 @@ import {
   ValidationPipe,
   Query,
   UseGuards,
+  Delete,
 } from '@nestjs/common';
 
 import { CreateUserDTO } from 'src/user/dto/create-user.dto';
@@ -13,10 +14,10 @@ import { AuthService } from './auth.service';
 import { IUser } from 'src/user/interfaces/user.interface';
 import { SignInDTO } from './dto/sign-in.dto';
 import { IReadableUser } from 'src/user/interfaces/readable-user.interface';
-import { SignOutDTO } from './dto/sign-out.dto';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtGuard } from 'src/guards/jwt.guard';
-// import { User } from 'src/user/decorators/user.decorator';
+import { User } from 'src/user/decorators/user.decorator';
+import { Result } from 'src/shared/interfaces/result.interface';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -37,9 +38,9 @@ export class AuthController {
 
   @ApiBearerAuth()
   @UseGuards(JwtGuard)
-  @Post('log-out')
-  logout(@Body(ValidationPipe) logout: SignOutDTO /* @User() user: IUser */) {
-    return this.authService.logOut(logout);
+  @Delete('log-out')
+  logout(@User() user: IUser): Promise<Result> {
+    return this.authService.logOut(user._id);
   }
 
   @Get('confirm')

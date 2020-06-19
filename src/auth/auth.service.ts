@@ -25,7 +25,7 @@ import { ERoles } from 'src/user/enums/roles.enum';
 import { SignInDTO } from './dto/sign-in.dto';
 import { IReadableUser } from 'src/user/interfaces/readable-user.interface';
 import { EUserSensitive } from 'src/user/enums/user-sensitive.enum';
-import { SignOutDTO } from './dto/sign-out.dto';
+import { Result } from 'src/shared/interfaces/result.interface';
 
 @Injectable()
 export class AuthService {
@@ -56,7 +56,7 @@ export class AuthService {
     const token = this.generateBearerToken(tokenPayload, { expiresIn });
 
     const link = this.cnfigService.get<string>('client_app');
-    const tokenLink = `${link}/auth/confirm?token=${token}`;
+    const tokenLink = `${link}/auth/confirm/${token}`;
 
     this.saveToken({ token, uId: user._id, expiresAt });
 
@@ -79,11 +79,7 @@ export class AuthService {
 
     await this.tokenService.remove(data._id, token);
 
-    if (
-      user &&
-      user.status === EStatus.pending &&
-      user.roles == [ERoles.guest]
-    ) {
+    if (user && user.status === EStatus.pending) {
       user.status = EStatus.active;
       user.roles = [ERoles.user];
       return user.save();
@@ -106,7 +102,7 @@ export class AuthService {
         roles: user.roles,
       };
 
-      const token = await this.generateBearerToken(tokenPayload);
+      const token = this.generateBearerToken(tokenPayload);
       const expiresAt = moment()
         .add(1, 'day')
         .toISOString();
@@ -123,9 +119,8 @@ export class AuthService {
     throw new UnauthorizedException();
   }
 
-  async logOut({ _id, token }: SignOutDTO) {
-    const user = await this.userService.find(_id);
-    return this.tokenService.remove(user._id, token);
+  async logOut(_id: string): Promise<Result> {
+    return this.tokenService.removeAll(_id);
   }
 
   private generateBearerToken(
@@ -148,7 +143,7 @@ export class AuthService {
         return verificationData;
       }
       throw new UnauthorizedException();
-    } catch (_) {
+    } catch (_e) {
       throw new UnauthorizedException();
     }
   }

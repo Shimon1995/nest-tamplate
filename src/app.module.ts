@@ -12,7 +12,11 @@ import { TokenModule } from './token/token.module';
     UserModule,
     MailModule,
     TokenModule,
-    MongooseModule.forRoot(process.env.mongodb),
+    MongooseModule.forRoot(process.env.mongodb, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    }),
   ],
 })
 export class AppModule {}

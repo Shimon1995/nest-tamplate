@@ -9,9 +9,10 @@ async function bootstrap() {
   const options = new DocumentBuilder()
     .setTitle('Auth template')
     .setDescription('The template saga for authorization')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('swagger', app, document);
 
   await app.listen(3000);
 }

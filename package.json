@@ -31,7 +31,7 @@
     "@nestjs/swagger": "^4.5.10",
     "bcrypt": "^5.0.0",
     "class-transformer": "^0.2.3",
-    "class-validator": "^0.12.2",
+    "class-validator": "^0.14.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "moment": "^2.27.0",
